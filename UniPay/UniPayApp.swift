@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct UniPayApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
-    }
-}
+    @State private var showSplashScreen = true
+       
+       var body: some Scene {
+           WindowGroup {
+                   LoginView()
+               }
+           }
+       }

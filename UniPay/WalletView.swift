@@ -8,11 +8,31 @@
 import SwiftUI
 
 struct WalletView: View {
+    let name: String
+    let amount: String
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            Text(name)
+                .font(.headline)
+                .foregroundColor(.black)
+            Spacer()
+            Text(amount)
+                .font(.headline)
+                .foregroundColor(.black)
+        }
+        .padding()
+        .background(Color.black.opacity(0.1))
+        .cornerRadius(10)
+        .frame(maxWidth: .infinity)
     }
 }
 
-#Preview {
-    WalletView()
+// Preview
+struct WalletView_Previews: PreviewProvider {
+    static var previews: some View {
+        WalletView(name: "Example", amount: "$0.00")
+            .previewLayout(.sizeThatFits)
+            .padding()
+    }
 }
