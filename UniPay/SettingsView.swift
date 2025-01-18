@@ -32,9 +32,11 @@ struct SettingsView: View {
                             .frame(width: 30, height: 30)
                     }
                     Spacer()
-                    Image(systemName: "house")
-                        .resizable()
-                        .frame(width: 30, height: 30)
+                    NavigationLink(destination: HomeView()) {
+                        Image(systemName: "house")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                    }
                     Spacer()
                     NavigationLink(destination: ScanView()) {
                         Image(systemName: "cube")
