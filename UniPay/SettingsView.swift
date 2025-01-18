@@ -4,6 +4,7 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             VStack {
+                // Content of SettingsView (List and other UI elements)
                 List {
                     NavigationLink(destination: AddBankAccountView()) {
                         Text("Add Bank Account")
@@ -19,10 +20,34 @@ struct SettingsView: View {
                     }
                 }
                 .listStyle(InsetGroupedListStyle())
+                
+                Spacer() // This ensures that the bottom navigation stays at the bottom of the screen
+                
+                // Bottom Navigation Bar
+                HStack {
+                    Spacer()
+                    NavigationLink(destination: SettingsView()) {
+                        Image(systemName: "gearshape")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                    }
+                    Spacer()
+                    Image(systemName: "house")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                    Spacer()
+                    NavigationLink(destination: ScanView()) {
+                        Image(systemName: "cube")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                    }
+                    Spacer()
+                }
+                .padding()
+                .background(Color.black.opacity(0.1))
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
-           
         }
     }
 }
