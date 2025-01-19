@@ -1,10 +1,3 @@
-//
-//  SignUpView.swift
-//  UniPay
-//
-//  Created by Lilly Toma on 1/18/25.
-//
-
 import SwiftUI
 
 struct SignUpView: View {
@@ -85,9 +78,13 @@ struct SignUpView: View {
                 }
                 .padding(.horizontal)
 
+                NavigationLink(destination: HomeView(), isActive: $canNavigate) {
+                    EmptyView() // Invisible navigation link to trigger the navigation programmatically
+                }
+
                 Button(action: {
                     if isValidInput() {
-                        canNavigate = true
+                        canNavigate = true // Set this to true to navigate to HomeView
                     } else {
                         alertMessage = "Please fill out all fields correctly."
                         showAlert = true
