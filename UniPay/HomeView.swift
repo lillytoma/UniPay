@@ -2,35 +2,68 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var availableFunds: Double = 20.0 // User's available funds
-    @State private var poundsBalance: Double = 0.0
-    @State private var leraBalance: Double = 0.0
-    @State private var yuanBalance: Double = 0.0
-    @State private var selectedCurrency: String = "Pounds" // Currency selection
+    @State private var selectedCurrency: String = "USD" // Currency selection
     @State private var convertedAmount: Double = 0.0 // Store the converted amount
     @State private var amountToConvert: String = "" // Amount entered by the user to convert
     
     let conversionRates: [String: Double] = [
-        "Pounds": 0.75, // 1 USD = 0.75 Pounds (example rate)
-        "Lera": 0.85,   // 1 USD = 0.85 Lera (example rate)
-        "Yuan": 6.45    // 1 USD = 6.45 Yuan (example rate)
+        "USD": 1.0,       // 1 USD = 1.0 USD
+        "Pounds": 0.75,   // 1 USD = 0.75 Pounds
+        "Lera": 0.85,     // 1 USD = 0.85 Lera
+        "Yuan": 6.45,     // 1 USD = 6.45 Yuan
+        "Euro": 0.9,      // 1 USD = 0.9 Euro
+        "Rupees": 83.5,   // 1 USD = 83.5 Indian Rupees
+        "Won": 1330.0,    // 1 USD = 1330 South Korean Won
+        "Pesos": 18.5,    // 1 USD = 18.5 Mexican Pesos
+        "Yen": 130.0,     // 1 USD = 130 Japanese Yen
+        "Franc": 0.92,    // 1 USD = 0.92 Swiss Franc
+        "CAD": 1.25       // 1 USD = 1.25 Canadian Dollars
     ]
     
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
                 
-                Text("$\(availableFunds, specifier: "%.2f")")
-                    .font(.system(size: 40, weight: .bold))
-                    .padding(60)
-                
-                // Currency Conversion Selector
-                Picker("Select Currency", selection: $selectedCurrency) {
-                    Text("Pounds").tag("Pounds")
-                    Text("Lera").tag("Lera")
-                    Text("Yuan").tag("Yuan")
+                // Available funds with "Add Money" link
+                HStack {
+                    Text("$\(availableFunds, specifier: "%.2f")")
+                        .font(.system(size: 40, weight: .bold))
                 }
-                .pickerStyle(SegmentedPickerStyle())
-                .padding()
+                
+                // Add Money NavigationLink
+                NavigationLink(destination: AddMoneyView(availableFunds: $availableFunds)) {
+                    Text("Add Money")
+                        .font(.headline)
+                        .foregroundColor(.blue)
+                        .padding(.horizontal)
+                        .padding(.vertical, 5)
+                        .background(RoundedRectangle(cornerRadius: 8).stroke(Color.blue, lineWidth: 1))
+                }
+                
+                // Horizontal Scrolling Currency Selection
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 15) {
+                        ForEach(conversionRates.keys.sorted(), id: \.self) { currency in
+                            Button(action: {
+                                selectedCurrency = currency
+                            }) {
+                                Text(currency)
+                                    .font(.headline)
+                                    .foregroundColor(selectedCurrency == currency ? .white : .blue)
+                                    .padding()
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .fill(selectedCurrency == currency ? Color.blue : Color.clear)
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 8)
+                                                    .stroke(Color.blue, lineWidth: 1)
+                                            )
+                                    )
+                            }
+                        }
+                    }
+                    .padding(.horizontal)
+                }
                 
                 // TextField to input amount to convert
                 TextField("Enter amount to convert", text: $amountToConvert)
@@ -41,22 +74,10 @@ struct HomeView: View {
                 
                 // Convert Button
                 Button(action: {
-                    // Perform the conversion based on the selected currency and entered amount
                     if let rate = conversionRates[selectedCurrency], let amount = Double(amountToConvert), amount <= availableFunds {
                         let converted = amount * rate
                         convertedAmount = converted
-                        
-                        // Subtract the converted amount from available funds
                         availableFunds -= amount
-                        
-                        // Update the balances for the selected currency
-                        if selectedCurrency == "Pounds" {
-                            poundsBalance = converted
-                        } else if selectedCurrency == "Lera" {
-                            leraBalance = converted
-                        } else if selectedCurrency == "Yuan" {
-                            yuanBalance = converted
-                        }
                     }
                 }) {
                     Text("Convert \(amountToConvert.isEmpty ? "" : "to \(selectedCurrency)")")
@@ -68,8 +89,8 @@ struct HomeView: View {
                         .disabled(amountToConvert.isEmpty) // Disable the button if no amount is entered
                 }
                 .padding()
-
-                // Credit Card Look-alike at the bottom
+                
+                // Debit Card Display
                 VStack {
                     Text("Debit Card")
                         .font(.title)
@@ -77,7 +98,7 @@ struct HomeView: View {
                         .padding(.top, 20)
                     
                     ZStack {
-                        // Background of the credit card
+                        // Background of the debit card
                         RoundedRectangle(cornerRadius: 20)
                             .fill(LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]), startPoint: .topLeading, endPoint: .bottomTrailing))
                             .frame(height: 200)
