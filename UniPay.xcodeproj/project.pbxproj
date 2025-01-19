@@ -195,6 +195,9 @@
 			);
 			mainGroup = E70356FB2D3C3D4200B205A5;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				E765616B2D3D5EB300095E21 /* XCRemoteSwiftPackageReference "mongo-swift-driver" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E70357052D3C3D4200B205A5 /* Products */;
 			projectDirPath = "";
@@ -558,6 +561,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E765616B2D3D5EB300095E21 /* XCRemoteSwiftPackageReference "mongo-swift-driver" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mongodb/mongo-swift-driver.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = E70356FC2D3C3D4200B205A5 /* Project object */;
 }
