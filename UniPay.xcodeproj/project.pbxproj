@@ -197,6 +197,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				E765616B2D3D5EB300095E21 /* XCRemoteSwiftPackageReference "mongo-swift-driver" */,
+				E76561702D3D60AD00095E21 /* XCRemoteSwiftPackageReference "MongoKitten" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E70357052D3C3D4200B205A5 /* Products */;
@@ -569,6 +570,14 @@
 			requirement = {
 				branch = main;
 				kind = branch;
+			};
+		};
+		E76561702D3D60AD00095E21 /* XCRemoteSwiftPackageReference "MongoKitten" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OpenKitten/MongoKitten";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.9.8;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
