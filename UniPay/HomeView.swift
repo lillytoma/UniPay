@@ -5,6 +5,7 @@ struct HomeView: View {
     @State private var selectedCurrency: String = "USD" // Currency selection
     @State private var convertedAmount: Double = 0.0 // Store the converted amount
     @State private var amountToConvert: String = "" // Amount entered by the user to convert
+    var userName: String // Add the userName property
 
     let conversionRates: [String: Double] = [
         "USD": 1.0,       // 1 USD = 1.0 USD
@@ -138,7 +139,7 @@ struct HomeView: View {
                                 Text("Exp: 12/24") // Expiration date (placeholder)
                                     .foregroundColor(.white)
                                 Spacer()
-                                Text("Cardholder Name") // Cardholder name (placeholder)
+                                Text("\(userName)") // Display the user's name from the login page
                                     .foregroundColor(.white)
                                     .font(.caption)
                             }
@@ -168,6 +169,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(userName: "John Doe")
     }
 }

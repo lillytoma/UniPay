@@ -1,10 +1,3 @@
-//
-//  LoginPage.swift
-//  UniPay
-//
-//  Created by Lilly Toma on 1/18/25.
-//
-
 import SwiftUI
 
 struct LoginView: View {
@@ -73,10 +66,11 @@ struct LoginView: View {
 
                 // NavigationLink to HomeView
                 NavigationLink(
-                    destination: HomeView(),
-                    isActive: $canNavigate,
-                    label: { EmptyView() }
-                )
+                    destination: HomeView(userName: username), // Pass the username here
+                    isActive: $canNavigate
+                ) {
+                    EmptyView()
+                }
                 .hidden() // Keep it hidden
 
                 // Sign Up Button
