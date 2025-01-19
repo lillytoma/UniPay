@@ -78,13 +78,14 @@ struct SignUpView: View {
                 }
                 .padding(.horizontal)
 
-                NavigationLink(destination: HomeView(), isActive: $canNavigate) {
-                    EmptyView() // Invisible navigation link to trigger the navigation programmatically
+                // Invisible navigation link to trigger the navigation programmatically
+                NavigationLink(destination: HomeView(userName: firstName + " " + lastName), isActive: $canNavigate) {
+                    EmptyView()
                 }
 
                 Button(action: {
                     if isValidInput() {
-                        canNavigate = true // Set this to true to navigate to HomeView
+                        canNavigate = true // Navigate to HomeView after successful sign-up
                     } else {
                         alertMessage = "Please fill out all fields correctly."
                         showAlert = true

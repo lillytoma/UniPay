@@ -66,7 +66,7 @@ struct HomeView: View {
                 // Horizontal Scrolling Currency Selection
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 15) {
-                        ForEach(conversionRates.keys.sorted(), id: \ .self) { currency in
+                        ForEach(conversionRates.keys.sorted(), id: \.self) { currency in
                             Button(action: {
                                 selectedCurrency = currency
                             }) {
