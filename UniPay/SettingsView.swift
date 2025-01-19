@@ -70,41 +70,11 @@ struct SettingsView: View {
                     UITableView.appearance().allowsSelection = true
                 }
 
-                // Bottom Navigation Bar
-                HStack {
-                    Spacer()
-                    NavigationLink(destination: SettingsView()) {
-                        Image(systemName: "gearshape")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .foregroundColor(.blue)
-                    }
-                    Spacer()
-                    NavigationLink(destination: HomeView()) {
-                        Image(systemName: "house")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .foregroundColor(.blue)
-                    }
-                    Spacer()
-                    NavigationLink(destination: ScanView()) {
-                        Image(systemName: "cube")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .foregroundColor(.blue)
-                    }
-                    Spacer()
-                }
-                .padding()
-                .background(Color(UIColor.systemGray5))
+                Spacer()
             }
             .navigationTitle("Settings")
+            .navigationBarBackButtonHidden(true) // Hides the back button
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Image(systemName: "gearshape")
-                }
-            }
         }
     }
 }
