@@ -17,16 +17,22 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
-                Text("Hello (UserName),")
-                    .font(.title2)
-                    .fontWeight(.bold)
-
-                Text("Current Funds: $\(availableFunds, specifier: "%.2f")")
-                    .font(.headline)
-                    .foregroundColor(.gray)
-
+                
                 Text("$\(availableFunds, specifier: "%.2f")")
                     .font(.system(size: 40, weight: .bold))
+                    .padding(60)
+                
+                // Add Money Button
+                NavigationLink(destination: AddMoneyView(availableFunds: $availableFunds)) {
+                    Text("Add Money")
+                        .font(.headline)
+                        .foregroundColor(.blue)
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 8).stroke(Color.blue, lineWidth: 1))
+                        .frame(maxWidth: .infinity)
+                        .padding(-20)
+                }
+                .padding(-40)
 
                 Text("Wallets:")
                     .font(.headline)
@@ -73,7 +79,6 @@ struct HomeView: View {
                 .background(Color.black.opacity(0.1))
             }
             .padding()
-            .navigationBarTitle("HomeView", displayMode: .inline)
         }
     }
 }
@@ -83,3 +88,4 @@ struct HomeView_Previews: PreviewProvider {
         HomeView()
     }
 }
+
