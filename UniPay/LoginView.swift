@@ -10,6 +10,8 @@ import SwiftUI
 struct LoginView: View {
     @State private var username: String = ""
     @State private var password: String = ""
+    @State private var showAlert: Bool = false
+    @State private var canNavigate: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -25,10 +27,12 @@ struct LoginView: View {
 
                 // Username Field
                 VStack(alignment: .leading, spacing: 5) {
-                    Text("UserName")
+                    Text("Email")
                         .font(.subheadline)
                         .foregroundColor(.gray)
-                    TextField("Enter your username", text: $username)
+                    TextField("Enter your email", text: $username)
+                        .keyboardType(.emailAddress)
+                        .autocapitalization(.none)
                         .textFieldStyle(PlainTextFieldStyle())
                         .padding(.vertical, 5)
                     Divider()
@@ -48,15 +52,32 @@ struct LoginView: View {
                 .padding(.horizontal)
 
                 // Login Button
-                NavigationLink(destination: HomeView()) {
+                Button(action: {
+                    if isValidInput() {
+                        canNavigate = true
+                    } else {
+                        showAlert = true
+                    }
+                }) {
                     Text("Login")
                         .frame(maxWidth: .infinity)
                         .padding()
                         .foregroundColor(.white)
-                        .background(Color.black)
+                        .background(isValidInput() ? Color.black : Color.gray)
                         .cornerRadius(8)
                 }
                 .padding(.horizontal)
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Invalid Input"), message: Text("Please enter a valid email and password."), dismissButton: .default(Text("OK")))
+                }
+
+                // NavigationLink to HomeView
+                NavigationLink(
+                    destination: HomeView(),
+                    isActive: $canNavigate,
+                    label: { EmptyView() }
+                )
+                .hidden() // Keep it hidden
 
                 // Sign Up Button
                 NavigationLink(destination: SignUpView()) {
@@ -69,6 +90,16 @@ struct LoginView: View {
             }
             .padding()
         }
+    }
+
+    // Input Validation
+    private func isValidInput() -> Bool {
+        return !username.isEmpty && !password.isEmpty && isValidEmail(username)
+    }
+
+    private func isValidEmail(_ email: String) -> Bool {
+        let emailRegex = "^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
+        return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
     }
 }
 

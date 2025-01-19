@@ -4,25 +4,72 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             VStack {
-                // Content of SettingsView (List and other UI elements)
+                // Credit card style user card at the top
+                VStack {
+                    HStack {
+                        // Credit Card Icon
+                        Image(systemName: "creditcard.fill")
+                            .resizable()
+                            .frame(width: 40, height: 80)
+                            .foregroundColor(.white)
+                            .padding(10)
+                        
+                        // Card information
+                        VStack(alignment: .leading) {
+                            Text("UniPay Wallet")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding(.bottom, 2)
+                            Text("Balance: $1000.00") // Replace with dynamic balance if needed
+                                .font(.subheadline)
+                                .foregroundColor(.white)
+                                .padding(.bottom, 5)
+                            HStack {
+                                Text("•••• 1234")
+                                    .font(.footnote)
+                                    .foregroundColor(.white)
+                                Spacer()
+                                Text("12/25") // Expiry Date
+                                    .font(.footnote)
+                                    .foregroundColor(.white)
+                            }
+                        }
+                        Spacer()
+                    }
+                    .padding([.leading, .trailing], 20)
+                    .padding([.top, .bottom], 10)
+                    .background(LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .cornerRadius(12) // Rounded corners for a card-like appearance
+                    .frame(height: 160) // Adjusted to look more like a credit card
+                    .shadow(radius: 10)
+                    .padding(.horizontal)
+                    
+                    Divider()
+                }
+                
+                // Settings List
                 List {
                     NavigationLink(destination: AddBankAccountView()) {
-                        Text("Add Bank Account")
+                        SettingsBubble(text: "Add Bank Account")
                     }
                     NavigationLink(destination: ViewBankInformationView()) {
-                        Text("View Bank Information")
+                        SettingsBubble(text: "View Bank Information")
                     }
                     NavigationLink(destination: ChangeEmailView()) {
-                        Text("Change email")
+                        SettingsBubble(text: "Change email")
                     }
                     NavigationLink(destination: ChangePasswordView()) {
-                        Text("Change Password")
+                        SettingsBubble(text: "Change Password")
                     }
                 }
                 .listStyle(InsetGroupedListStyle())
-                
-                Spacer() // This ensures that the bottom navigation stays at the bottom of the screen
-                
+                .onAppear {
+                    UITableView.appearance().allowsSelection = false
+                }
+                .onDisappear {
+                    UITableView.appearance().allowsSelection = true
+                }
+
                 // Bottom Navigation Bar
                 HStack {
                     Spacer()
@@ -30,27 +77,48 @@ struct SettingsView: View {
                         Image(systemName: "gearshape")
                             .resizable()
                             .frame(width: 30, height: 30)
+                            .foregroundColor(.blue)
                     }
                     Spacer()
                     NavigationLink(destination: HomeView()) {
                         Image(systemName: "house")
                             .resizable()
                             .frame(width: 30, height: 30)
+                            .foregroundColor(.blue)
                     }
                     Spacer()
                     NavigationLink(destination: ScanView()) {
                         Image(systemName: "cube")
                             .resizable()
                             .frame(width: 30, height: 30)
+                            .foregroundColor(.blue)
                     }
                     Spacer()
                 }
                 .padding()
-                .background(Color.black.opacity(0.1))
+                .background(Color(UIColor.systemGray5))
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Image(systemName: "gearshape")
+                }
+            }
         }
+    }
+}
+
+struct SettingsBubble: View {
+    let text: String
+
+    var body: some View {
+        Text(text)
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(Color(UIColor.systemGray5))
+            .cornerRadius(16)
+            .padding(.vertical, 8)
     }
 }
 
@@ -75,8 +143,8 @@ struct AddBankAccountView: View {
                 Text("Enter")
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.blue)
                     .foregroundColor(.white)
+                    .background(Color(UIColor.systemGray2))
                     .cornerRadius(8)
             }
         }
@@ -103,6 +171,9 @@ struct ViewBankInformationView: View {
                             .font(.subheadline)
                     }
                 }
+                .padding()
+                .background(Color(UIColor.systemGray5))
+                .cornerRadius(16)
             }
         }
         .navigationTitle("View Bank Information")
@@ -135,8 +206,8 @@ struct ChangeEmailView: View {
                 Text("Enter")
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.blue)
                     .foregroundColor(.white)
+                    .background(Color(UIColor.systemGray2))
                     .cornerRadius(8)
             }
         }
@@ -164,8 +235,8 @@ struct ChangePasswordView: View {
                 Text("Enter")
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.blue)
                     .foregroundColor(.white)
+                    .background(Color(UIColor.systemGray2))
                     .cornerRadius(8)
             }
 
